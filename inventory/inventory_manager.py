@@ -4,6 +4,13 @@ class InventoryManager:
     def __init__(self):
         self.products = {}  # key = id, value = Product
     
+    def save_products(self):
+        """Saves the current products to a file"""
+        pass
+    def load_products(self):
+        """Loads the products from a file"""
+        pass
+    
     def add_product(self, product: Product):
         """Adds a new or overrides an existing product with the given product"""
         self.products[product.id] = product
