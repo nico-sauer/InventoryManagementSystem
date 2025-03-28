@@ -1,11 +1,13 @@
-
+from inventory.inventory_manager import InventoryManager
+from inventory.product import Product
 import time
 import sys
 from random import randint
 
+manager = InventoryManager()
 def main():
     while True:
-
+        
         print("***********************************")
         print("*              ***                *")
         print("*         Inventory               *")
@@ -75,6 +77,7 @@ def item_menu(id):
         print("************************")
         print("Printing the current inventory details of 'scanned' product.")
         #dunder method str in product later or from get_info etc
+        Product.get_product_info()
         print("  > 1. Update Quantity")
         print("  > 2. Update Price")
         print("  > 3. Return to Inventory Menu.")
@@ -89,10 +92,15 @@ def item_menu(id):
             option = input(" > Enter your option (1 to 3 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
-            print("Updating the quantity in inventory")
+            new_quantity = int(input("Enter new quantity: "))
+            manager.update_quantity(id, new_quantity)
+            print(f"Updated quantity in inventory. Current Quantity: {new_quantity}.")
+            
          
         elif option == "2":
-            print("Updating the product price in inventory")
+            new_price = float(input("Enter updated price: "))
+            manager.update_price(new_price)
+            print(f"Product price updated. Current Price: {new_price}.")
         
         elif option == "3":
             inventory_menu()
