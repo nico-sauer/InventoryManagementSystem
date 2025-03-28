@@ -15,14 +15,14 @@ class Product:
         self.price = price
         self.quantity = quantity
     
-    def update_quantity():
+    def update_quantity(self, quantity: int):
         """Update the quantity of the product"""
-        pass
+        self.quantity = quantity
     
-    def update_price():
+    def update_price(self, price: float):
         """Update the price of the product"""
-        pass
+        self.price = price
     
-    def get_product_info():
+    def get_product_info(self):
         """Get the product information as a string representation"""
-        pass
+        return f"Product id: {self.id}, name: {self.name} price; ${self.price: float}, quantity: {self.quantity}"
