@@ -27,7 +27,7 @@ def main():
         print("************************")
         option = input("—> ").lower()
         
-        while option not in (["1", "2", "3" "x"]):
+        while option not in (["1", "2", "3", "x"]):
             print("Invalid Input. Try again.")
             option = input("—> ").lower()
         
@@ -63,6 +63,7 @@ def new_item():
     #note -> should we do wholesale cost and selling price and do something re profit?
     quantity = int(input("Enter Quantity:"))
     id = randint(1000, 99999) 
+    print(id)
     #while id in <inventory> -> TODO later
         #id = randint(1000, 99999) 
     return Product(id, name, price, quantity)
@@ -77,7 +78,7 @@ def item_menu(id):
         print("************************")
         print("Printing the current inventory details of 'scanned' product.")
         #dunder method str in product later or from get_info etc
-        Product.get_product_info()
+        manager.get_product_info()
         print("  > 1. Update Quantity")
         print("  > 2. Update Price")
         print("  > 3. Return to Inventory Menu.")
