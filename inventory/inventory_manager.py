@@ -62,6 +62,11 @@ class InventoryManager:
         except Exception as e:
             return f"Product not found. Error: {e}"
         
+    def find_by_name(self, name):
+        for prod in self.products.values():
+            if name in prod.name:
+                product_id = prod.id 
+                print(self.products[int(product_id)].get_product_info())
     
     def get_total_inventory_value(self):
         """Calculate the total value of the entire inventory"""

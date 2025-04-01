@@ -24,16 +24,17 @@ def main():
 #function to add a new product to inventory             
 def new_item():
     
-    name = input("Name: ")     
+    name = input("Name: ").capitalize()  
     price = float(input("Product Price: "))
     cost_price = float(input("Product Cost Price: "))
-    category = input("Category: ")
+    category = input("Category: ").capitalize()
+    colour = input("Colour: ").capitalize()
     quantity = int(input("Enter Quantity: "))
     id = randint(10000, 99999) 
     while id in manager.get_product_ids():
         id = randint(10000, 99999) 
     print(id)
-    return Product(id, name, price, quantity, cost_price, category)
+    return Product(id, name, price, quantity, cost_price, category, colour)
     
 
 
@@ -87,11 +88,12 @@ def inventory_menu():
         
         elif option == "4":
             print("Enter product name:")
-            name = input("—> ")
-            print(f"Printing inventory of all products with name {name}.")
+            name = input("—> ").capitalize()
+            manager.find_by_name(name)
+            #print(f"Printing inventory of all products with name {name}.")
             #maybe in a way where we can check for similar categories
-            #say clothes/clothes like if a certain amount of characters overlap
-        elif option == "5":
+            #say clothes/clothest of characters overlap
+        elif option == "5": 
             product = new_item()
             manager.add_product(product)
             manager.save_products(products_file)

@@ -1,7 +1,7 @@
 class Product:
     """The Products that we are managing"""
     
-    def __init__(self, id: int, name: str, price: float, quantity: int, cost_price: float, category: str):
+    def __init__(self, id: int, name: str, price: float, quantity: int, cost_price: float, category: str, colour: str):
         """Initiator for Product, assigning default values
 
         Args:
@@ -16,6 +16,7 @@ class Product:
         self.__quantity = quantity
         self.__cost_price = cost_price
         self.__category = category
+        self.__colour = colour
     
     @property
     def id(self) -> int:
@@ -58,7 +59,13 @@ class Product:
     @category.setter
     def category(self, category):
         self.__category = category
-        
+    
+    @property
+    def colour(self) -> str:
+        return self.__colour
+    @colour.setter
+    def colour(self, colour):
+        self.__colour = colour
         
     def update_quantity(self, quantity: int):
         """Update the quantity of the product"""
@@ -86,4 +93,7 @@ class Product:
 
     def get_product_info(self) -> str:
         """Get the product information as a string representation"""
-        return f"Product ID: {self.__id}, Name: {self.__name} Price; {self.__price:.2f}€, Cost Price: {self.__cost_price:.2f}€, Quantity: {self.__quantity}"
+        return f"Product ID: {self.__id} —> Name: {self.__name}, Category: {self.__category}, Colour: {self.__colour}, Price: {self.__price:.2f}€, Cost Price: {self.__cost_price:.2f}€, Quantity: {self.__quantity}"
+     
+    
+    
