@@ -7,7 +7,7 @@ from random import randint
 manager = InventoryManager()
 products_file = "./inventory/saved_inventory.txt"
 def main():
-    
+
     #load the inventory from file:
     manager.load_products(filename=products_file)
     
@@ -99,6 +99,7 @@ def item_menu(id):
         if option == "1":
             new_quantity = int(input("Enter new quantity: "))
             manager.update_quantity(id, new_quantity)
+            manager.save_products(products_file)
             print(f"Updated quantity in inventory. Current Quantity: {new_quantity}.")
             
          
@@ -107,6 +108,7 @@ def item_menu(id):
             new_cost_price = float(input("Enter updated cost price: "))
             manager.update_price(new_price)
             manager.update_cost_price(new_cost_price)
+            manager.save_products(products_file)
             print(f"Product price updated. Current Price: {new_price}.\nCost price updated. Current cost price: {new_cost_price}.")
         
         

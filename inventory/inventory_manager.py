@@ -1,6 +1,5 @@
 from inventory.product import Product
-import json
-from json import JSONEncoder
+import pickle
 
 class InventoryManager:
     products = {} 
@@ -10,11 +9,17 @@ class InventoryManager:
     
     def save_products(self, filename: str):
         """Saves the current products to a file"""
-        pass
+        with open(filename, "wb") as f:
+            pickle.dump(self, f)
         
     def load_products(self, filename: str):
         """Loads the products from a file"""
-        pass
+        try:
+            with open(filename, "rb") as f:
+                obj = pickle.load(f)
+                self.products = obj.products
+        except:
+            self.products = {}
     
     def add_product(self, product: Product):
         """Adds a new or overrides an existing product with the given product"""
@@ -65,7 +70,3 @@ class InventoryManager:
             total += prod.price * prod.quantity
         return total
     
-# subclass JSONEncoder
-class InventoryManagerEncoder(JSONEncoder):
-    def default(self, o):
-        return o.__dict__
