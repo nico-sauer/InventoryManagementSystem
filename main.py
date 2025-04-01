@@ -5,7 +5,12 @@ import sys
 from random import randint
 
 manager = InventoryManager()
+products_file = "./inventory/saved_inventory.txt"
 def main():
+    
+    #load the inventory from file:
+    manager.load_products(filename=products_file)
+    
     while True:
         
         print("***********************************")

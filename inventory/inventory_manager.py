@@ -3,21 +3,22 @@ import json
 
 class InventoryManager:
     
-    saved_inventory_filename = "saved_inventory.txt"
-    
     def __init__(self):
         self.products = {}  # key = id, value = Product
     
-    def save_products(self):
+    def save_products(self, filename: str):
         """Saves the current products to a file"""
-        with open(self.saved_inventory_filename, "w") as fp:  # w = write
+        with open(filename, "w") as fp:  # w = write
             json.dump(self.products, fp)  # encode dict into JSON
         
-    def load_products(self):
+    def load_products(self, filename: str):
         """Loads the products from a file"""
-        with open(self.saved_inventory_filename, "r") as fp:  # r = read
-            # Load the dictionary from the file
-            self.products = json.load(fp)
+        with open(filename, "r") as fp:  # r = read
+            try:
+                # Load the dictionary from the file
+                self.products = json.load(fp)
+            except:
+                self.products = {}
     
     def add_product(self, product: Product):
         """Adds a new or overrides an existing product with the given product"""
