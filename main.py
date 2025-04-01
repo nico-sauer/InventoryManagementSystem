@@ -5,7 +5,12 @@ import sys
 from random import randint
 
 manager = InventoryManager()
+products_file = "./inventory/saved_inventory.txt"
 def main():
+    
+    #load the inventory from file:
+    manager.load_products(filename=products_file)
+    
     while True:
         
         print("***********************************")
@@ -40,17 +45,16 @@ def main():
         elif option == "2":
             time.sleep(1)
             print("Scan barcode or enter product number:")
-            id = input("ID —>")
+            id = input("ID —> ")
             time.sleep(1)
-            #TODO check id/find product etc + open other menu
-            #if id in <inventory>
             item_menu(id)
             break
               
         #add new product 
         elif option == "3":
             product = new_item()
-            
+            manager.add_product(product)
+            manager.save_products(products_file)
             
         else:
             sys.exit()
@@ -59,14 +63,15 @@ def main():
 def new_item():
     
     name = input("Name: ")     
-    price = float(input("Product Cost: "))
-    #note -> should we do wholesale cost and selling price and do something re profit?
-    quantity = int(input("Enter Quantity:"))
+    price = float(input("Product Price: "))
+    cost_price = float(input("Product Cost Price: "))
+    category = input("Category: ")
+    quantity = int(input("Enter Quantity: "))
     id = randint(1000, 99999) 
+    while id in manager.get_product_ids():
+        id = randint(1000, 99999) 
     print(id)
-    #while id in <inventory> -> TODO later
-        #id = randint(1000, 99999) 
-    return Product(id, name, price, quantity)
+    return Product(id, name, price, quantity, cost_price, category)
     
 #item inventory menu 
          
@@ -76,9 +81,8 @@ def item_menu(id):
 
         print("")
         print("************************")
-        print("Printing the current inventory details of 'scanned' product.")
-        #dunder method str in product later or from get_info etc
-        manager.get_product_info()
+        print("Printing the current inventory details of 'scanned' product.") #take out later
+        print(manager.get_product_info(id))
         print("  > 1. Update Quantity")
         print("  > 2. Update Price")
         print("  > 3. Return to Inventory Menu.")
@@ -100,8 +104,11 @@ def item_menu(id):
          
         elif option == "2":
             new_price = float(input("Enter updated price: "))
+            new_cost_price = float(input("Enter updated cost price: "))
             manager.update_price(new_price)
-            print(f"Product price updated. Current Price: {new_price}.")
+            manager.update_cost_price(new_cost_price)
+            print(f"Product price updated. Current Price: {new_price}.\nCost price updated. Current cost price: {new_cost_price}.")
+        
         
         elif option == "3":
             inventory_menu()
@@ -131,6 +138,8 @@ def inventory_menu():
             option = input(" > Enter your option (1 to 3 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
+            for key in manager.get_product_ids():
+                print(manager.get_product_info(key))
             #print out whole inventory
             #get_total_inventory_value 
             #(i think that makes sense here instead of making it a specific option)
@@ -153,4 +162,3 @@ def inventory_menu():
 
 if __name__ == "__main__":
     main()
-
