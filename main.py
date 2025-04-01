@@ -49,23 +49,30 @@ def inventory_menu():
         time.sleep(1)
         print("     ————————————— ")
         print("")
-        print("  > 1. Show Full Inventory.") 
-        print("  > 2. Show Inventory by Category.")
-        print("  > 3. Find Product by ID.")
-        print("  > 4. Find Product by Name.")
-        print("  > 5. Add new product.")
+        print("  > 1. Access Product by ID.")
+        print("  > 2. Show Full Inventory.") 
+        print("  > 3. Show Inventory by Category.")
+        print("  > 4. Show Inventory by Name.")
+        print("  > 5. Show Inventory by Colour.")
+        print("  > 6. Add new product to inventory.")
         print("")
         print("   Click 'x' to quit. ")
         print("***********************************")
 
-        option = input("Enter your option (1 to 5) or 'x' to quit:\n—> ").lower()
+        option = input("Enter your option (1 to 6) or 'x' to quit:\n—> ").lower()
         
-        while option not in (["1", "2", "3", "4", "5", "x"]):
+        while option not in (["1", "2", "3", "4", "5", "6", "x"]):
             print("Invalid. Try again.")
-            option = input(" > Enter your option (1 to 5 or 'x' to quit):\n—> ").lower()
+            option = input(" > Enter your option (1 to 6 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
-            #print out whole inventory
+           print("Enter product ID number:")
+           id = input("ID —> ")
+           item_menu(id)
+            
+        #checking specific item in inventory                  
+        elif option == "2":
+             #print out whole inventory
             for key in manager.get_product_ids():
                 print(manager.get_product_info(key))
                 time.sleep(1)
@@ -73,27 +80,24 @@ def inventory_menu():
             #get_total_inventory_value 
             print(f"Total Inventory Value: {manager.get_total_inventory_value():.2f}€")
             time.sleep(2)
-        #checking specific item in inventory                  
-        elif option == "2":
-            print("Enter product category:")
-            id = input("—> ")
-            print("Printing inventory of specified category.")
-            time.sleep(2)
                
         elif option == "3":
-            print("Enter product ID number:")
-            id = input("ID —> ")
-            item_menu(id)
-            
+            print("Enter product category:")
+            category = input("—> ").capitalize()
+            print("Printing inventory of specified category.")
+            time.sleep(2)
         
         elif option == "4":
             print("Enter product name:")
             name = input("—> ").capitalize()
-            manager.find_by_name(name)
-            #print(f"Printing inventory of all products with name {name}.")
-            #maybe in a way where we can check for similar categories
-            #say clothes/clothest of characters overlap
-        elif option == "5": 
+            manager.sort_by_name(name)
+            
+        elif option == "5":
+            print("Enter product colour:")
+            colour = input("—> ").capitalize()
+            manager.sort_by_colour(colour)
+            
+        elif option == "6": 
             product = new_item()
             manager.add_product(product)
             manager.save_products(products_file)

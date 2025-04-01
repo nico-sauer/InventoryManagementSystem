@@ -62,9 +62,15 @@ class InventoryManager:
         except Exception as e:
             return f"Product not found. Error: {e}"
         
-    def find_by_name(self, name):
+    def sort_by_name(self, name):
         for prod in self.products.values():
             if name in prod.name:
+                product_id = prod.id 
+                print(self.products[int(product_id)].get_product_info())
+    
+    def sort_by_colour(self, colour):
+        for prod in self.products.values():
+            if colour in prod.colour:
                 product_id = prod.id 
                 print(self.products[int(product_id)].get_product_info())
     
