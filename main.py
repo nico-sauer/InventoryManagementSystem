@@ -25,7 +25,7 @@ def main():
         print("************************")
         print(" >>> Menu Options:")
         print("  > 1. Check Inventory.") #check whole inventory
-        print("  > 2. Check Product Inventory") #check specific product
+        print("  > 2. Check Product") #check specific product
         print("  > 3. Add new product.")  #add new product immediately
         print("")
         print("   Click 'x' to quit. ")
@@ -111,12 +111,11 @@ def item_menu(id):
             manager.save_products(products_file)
             print(f"Product price updated. Current Price: {new_price}.\nCost price updated. Current cost price: {new_cost_price}.")
         
-        
         elif option == "3":
             inventory_menu()
                
         else:
-            sys.exit() 
+            sys.exit()
 
 #inventory menu
 def inventory_menu():
@@ -128,16 +127,15 @@ def inventory_menu():
         print("")
         print("  > 1. Full Inventory.") 
         print("  > 2. Check Product.")
-        print("  > 3. Third Option Maybe")
         print("")
         print("   Click 'x' to quit. ")
         print("************************")
 
-        option = input("Enter your option (1 to 3) or 'x' to quit:\n—> ").lower()
+        option = input("Enter your option (1 to 2) or 'x' to quit:\n—> ").lower()
         
-        while option not in (["1", "2", "3", "x"]):
+        while option not in (["1", "2", "x"]):
             print("Invalid. Try again.")
-            option = input(" > Enter your option (1 to 3 or 'x' to quit):\n—> ").lower()
+            option = input(" > Enter your option (1 to 2 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
             #print out whole inventory
@@ -152,10 +150,6 @@ def inventory_menu():
             print("Enter product ID number:")
             id = input("ID —>")
             item_menu(id)
-        
-        elif option == "3":
-            #leaving this here for now just in case we want another option
-            pass
                
         else:
             sys.exit() 
