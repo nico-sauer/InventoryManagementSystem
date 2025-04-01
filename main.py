@@ -138,12 +138,12 @@ def inventory_menu():
             option = input(" > Enter your option (1 to 3 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
+            #print out whole inventory
             for key in manager.get_product_ids():
                 print(manager.get_product_info(key))
-            #print out whole inventory
+                
             #get_total_inventory_value 
-            #(i think that makes sense here instead of making it a specific option)
-            print("This would be the inventory + total value at the end.")
+            print(f"Total Inventory Value: {manager.get_total_inventory_value():.2f}€")
          
         #checking specific item in inventory                  
         elif option == "2":
