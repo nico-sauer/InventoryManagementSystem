@@ -83,7 +83,7 @@ class Product:
     def get_profit(self) -> float:
         """Calculate the total profit for the product (selling price - cost price) * quantity."""
         return (self.__price - self.__cost_price) * self.__quantity            
-    
+
     def get_product_info(self) -> str:
         """Get the product information as a string representation"""
-        return f"Product id: {self.__id}, Name: {self.__name} Price; {self.__price:.2f}€, Cost Price: {self.__cost_price:.2f}€, Quantity: {self.__quantity}"
+        return f"Product ID: {self.__id}, Name: {self.__name} Price; {self.__price:.2f}€, Cost Price: {self.__cost_price:.2f}€, Quantity: {self.__quantity}"
