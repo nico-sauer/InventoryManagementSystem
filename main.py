@@ -83,11 +83,11 @@ def item_menu(id):
         print("************************")
         print("Printing the current inventory details of 'scanned' product.") #take out later
         print(manager.get_product_info(id))
-        print("  > 1. Update Quantity")
-        print("  > 2. Update Price")
-        print("  > 3. Return to Inventory Menu.")
+        print("  > 1. Update Quantity.")
+        print("  > 2. Update Price.")
+        print("  > 3. Delete Product.")
         print("")
-        print("   Click 'x' to quit. ")
+        print("  Click 'x' to return to Inventory Menu.")
         print("************************")
         
         option = input("Enter your option (1 to 3) or 'x' to quit:\n—> ").lower()
@@ -112,10 +112,11 @@ def item_menu(id):
             print(f"Product price updated. Current Price: {new_price}.\nCost price updated. Current cost price: {new_cost_price}.")
         
         elif option == "3":
-            inventory_menu()
+            manager.remove_product(id)
+            manager.save_products(products_file)
                
         else:
-            sys.exit()
+            inventory_menu()
 
 #inventory menu
 def inventory_menu():

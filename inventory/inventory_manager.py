@@ -2,10 +2,10 @@ from inventory.product import Product
 import pickle
 
 class InventoryManager:
-    products = {} 
+     
     
-    #def __init__(self):
-        #self.products = {}  # key = id, value = Product
+    def __init__(self):
+        self.products = {}  # key = id, value = Product
     
     def save_products(self, filename: str):
         """Saves the current products to a file"""
@@ -25,11 +25,11 @@ class InventoryManager:
         """Adds a new or overrides an existing product with the given product"""
         self.products[product.id] = product
     
-    def remove_product(self, product_name: str):
+    def remove_product(self, product_id: int):
         """Removes a product by name"""
         # get the id by name:
-        id = next((id for id, name in self.products.items() if name == product_name), None)
-        self.products.pop(id, None)  # "None" caters for if key was not found: then do nothing.
+        #id = next((id for id, name in self.products.items() if name == product_name), None)
+        self.products.pop(product_id, None)  # "None" caters for if key was not found: then do nothing.
     
     def update_quantity(self, product_id: int, new_quantity: int):
         """Update quantity of specified product"""
