@@ -55,7 +55,8 @@ def main():
         #add new product 
         elif option == "3":
             product = new_item()
-            
+            manager.add_product(product)
+            manager.save_products(products_file)
             
         else:
             sys.exit()
@@ -64,14 +65,16 @@ def main():
 def new_item():
     
     name = input("Name: ")     
-    price = float(input("Product Cost: "))
+    price = float(input("Product Price: "))
+    cost_price = float(input("Product Cost Price: "))
+    category = input("Category: ")
     #note -> should we do wholesale cost and selling price and do something re profit?
-    quantity = int(input("Enter Quantity:"))
+    quantity = int(input("Enter Quantity: "))
     id = randint(1000, 99999) 
     print(id)
     #while id in <inventory> -> TODO later
         #id = randint(1000, 99999) 
-    return Product(id, name, price, quantity)
+    return Product(id, name, price, quantity, cost_price, category)
     
 #item inventory menu 
          
