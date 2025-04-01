@@ -1,5 +1,6 @@
 from inventory.product import Product
 import json
+from json import JSONEncoder
 
 class InventoryManager:
     products = {} 
@@ -9,18 +10,10 @@ class InventoryManager:
     
     def save_products(self, filename: str):
         """Saves the current products to a file"""
-        # with open(filename, "w") as fp:  # w = write
-        #     json.dump(self.products, fp)  # encode dict into JSON
         pass
         
     def load_products(self, filename: str):
         """Loads the products from a file"""
-        # with open(filename, "r") as fp:  # r = read
-        #     try:
-        #         # Load the dictionary from the file
-        #         self.products = json.load(fp)
-        #     except:
-        #         self.products = {}
         pass
     
     def add_product(self, product: Product):
@@ -72,5 +65,7 @@ class InventoryManager:
             total += prod.price * prod.quantity
         return total
     
-    
-
+# subclass JSONEncoder
+class InventoryManagerEncoder(JSONEncoder):
+    def default(self, o):
+        return o.__dict__

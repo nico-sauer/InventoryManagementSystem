@@ -86,4 +86,4 @@ class Product:
     
     def get_product_info(self) -> str:
         """Get the product information as a string representation"""
-        return f"Product id: {self.__id}, name: {self.__name} price; ${self.__price: float}, Cost Price: ${self.__cost_price: float}, quantity: {self.__quantity}"
+        return f"Product id: {self.__id}, name: {self.__name} price; ${self.__price}, Cost Price: ${self.__cost_price}, quantity: {self.__quantity}"
