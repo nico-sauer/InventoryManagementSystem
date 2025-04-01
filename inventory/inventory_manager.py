@@ -8,17 +8,19 @@ class InventoryManager:
     
     def save_products(self, filename: str):
         """Saves the current products to a file"""
-        with open(filename, "w") as fp:  # w = write
-            json.dump(self.products, fp)  # encode dict into JSON
+        # with open(filename, "w") as fp:  # w = write
+        #     json.dump(self.products, fp)  # encode dict into JSON
+        pass
         
     def load_products(self, filename: str):
         """Loads the products from a file"""
-        with open(filename, "r") as fp:  # r = read
-            try:
-                # Load the dictionary from the file
-                self.products = json.load(fp)
-            except:
-                self.products = {}
+        # with open(filename, "r") as fp:  # r = read
+        #     try:
+        #         # Load the dictionary from the file
+        #         self.products = json.load(fp)
+        #     except:
+        #         self.products = {}
+        pass
     
     def add_product(self, product: Product):
         """Adds a new or overrides an existing product with the given product"""
