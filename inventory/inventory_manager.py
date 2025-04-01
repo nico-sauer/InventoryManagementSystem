@@ -2,9 +2,10 @@ from inventory.product import Product
 import json
 
 class InventoryManager:
+    products = {} 
     
-    def __init__(self):
-        self.products = {}  # key = id, value = Product
+    #def __init__(self):
+        #self.products = {}  # key = id, value = Product
     
     def save_products(self, filename: str):
         """Saves the current products to a file"""
@@ -48,14 +49,21 @@ class InventoryManager:
         """Gets the first id of a product by the given name"""
         return next((id for id, name in self.products.items() if name == product_name), None)
     
-    def get_product_info(self, product_name: str):
+    def get_product_ids(self):
+        return self.products.keys()
+    
+    def get_product_info(self, product_id: int):
         """Retrieve product information by name"""
         # get the id by name:
-        id = next((id for id, name in self.products.items() if name == product_name), None)
-        if id == None:
+        # id = next((id for id, name in self.products.items() if name == product_name), None)
+        # if id == None:
+        #     return "Product not found"
+        # else:
+        try:
+            return self.products[product_id].get_product_info()
+        except:
             return "Product not found"
-        else:
-            return self.products[id].get_product_info()
+        
     
     def get_total_inventory_value(self):
         """Calculate the total value of the entire inventory"""
