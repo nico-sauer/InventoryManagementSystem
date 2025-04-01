@@ -93,7 +93,10 @@ class Product:
 
     def get_product_info(self) -> str:
         """Get the product information as a string representation"""
-        return f"Product ID: {self.__id} —> Name: {self.__name}, Category: {self.__category}, Colour: {self.__colour}, Price: {self.__price:.2f}€, Cost Price: {self.__cost_price:.2f}€, Quantity: {self.__quantity}"
+        return f"Product ID—> {self.__id}\n—————————————————————————————————————————————————\
+            \nName: {self.__name} | Category: {self.__category} | Colour: {self.__colour}\
+            \nPrice: {self.__price:.2f}€ | Cost Price: {self.__cost_price:.2f}€ | Stock: {self.__quantity}\
+            \n—————————————————————————————————————————————————"
      
     
-    
+    #note —> we could also return the full value of the stock with product info 

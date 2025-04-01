@@ -84,7 +84,7 @@ def inventory_menu():
         elif option == "3":
             print("Enter product category:")
             category = input("—> ").capitalize()
-            print("Printing inventory of specified category.")
+            manager.sort_by_category(category)
             time.sleep(2)
         
         elif option == "4":
