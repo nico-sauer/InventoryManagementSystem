@@ -42,6 +42,10 @@ class InventoryManager:
     def update_cost_price(self, product_id: int, new_cost_price: float):
         """Update cost price of specified product"""
         self.products[int(product_id)].update_cost_price(new_cost_price)
+        
+    def update_category(self, product_id: int, new_category: str):
+        """Update category of specified product"""
+        self.products[int(product_id)].update_category(new_category)
     
     def get_product_id(self, product_name: str):
         """Gets the first id of a product by the given name"""

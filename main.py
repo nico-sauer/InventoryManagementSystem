@@ -119,16 +119,17 @@ def item_menu(id):
         time.sleep(1)
         print("  > 1. Update Quantity.")
         print("  > 2. Update Price.")
-        print("  > 3. Delete Product.")
+        print("  > 3. Update Category.")
+        print("  > 4. Delete Product.")
         print("")
         print("  Click 'x' to return to Inventory Menu.")
         print("************************")
         
-        option = input("Enter your option (1 to 3) or 'x' to quit:\n—> ").lower()
+        option = input("Enter your option (1 to 4) or 'x' to quit:\n—> ").lower()
         
-        while option not in (["1", "2", "3", "x"]):
+        while option not in (["1", "2", "3", "4", "x"]):
             print("Invalid. Try again.")
-            option = input(" > Enter your option (1 to 3 or 'x' to quit):\n—> ").lower()
+            option = input(" > Enter your option (1 to 4 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
             new_quantity = int(input("Enter new quantity: "))
@@ -146,6 +147,12 @@ def item_menu(id):
             print(f"Product price updated. Current Price: {new_price}.\nCost price updated. Current cost price: {new_cost_price}.")
         
         elif option == "3":
+            new_category = input("Enter updated category: ")
+            manager.update_category(id, new_category)
+            manager.save_products(products_file)
+            print(f"Product category updated. Current category: {new_category}.")
+        
+        elif option == "4":
             manager.remove_product(id)
             manager.save_products(products_file)
             inventory_menu()

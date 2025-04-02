@@ -79,6 +79,10 @@ class Product:
         """Update the cost price of the product."""
         self.__cost_price = cost_price
         
+    def update_category(self, category: str):
+        """Update the category of the product."""
+        self.__category = category.capitalize()
+        
     def get_discount(self) -> float:
         """return the discount."""
         return self.__price - self.__cost_price
