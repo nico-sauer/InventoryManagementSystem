@@ -24,11 +24,11 @@ def main():
 #function to add a new product to inventory             
 def new_item():
     
-    name = input("Name: ").capitalize()  
+    name = input("Name: ").title()  
     price = float(input("Product Price: "))
     cost_price = float(input("Product Cost Price: "))
-    category = input("Category: ").capitalize()
-    colour = input("Colour: ").capitalize()
+    category = input("Category: ").title()
+    colour = input("Colour: ").title()
     quantity = int(input("Enter Quantity: "))
     id = randint(10000, 99999) 
     while id in manager.get_product_ids():
@@ -83,18 +83,18 @@ def inventory_menu():
                
         elif option == "3":
             print("Enter product category:")
-            category = input("—> ").capitalize()
+            category = input("—> ").title()
             manager.sort_by_category(category)
             time.sleep(2)
         
         elif option == "4":
             print("Enter product name:")
-            name = input("—> ").capitalize()
+            name = input("—> ").title()
             manager.sort_by_name(name)
             
         elif option == "5":
             print("Enter product colour:")
-            colour = input("—> ").capitalize()
+            colour = input("—> ").title()
             manager.sort_by_colour(colour)
             
         elif option == "6": 
