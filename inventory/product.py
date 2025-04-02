@@ -71,6 +71,14 @@ class Product:
         """Update the quantity of the product"""
         self.__quantity = quantity
     
+    def add_stock_to_inventory(self, update_by: int): 
+        """Add stock to inventory."""   
+        self.__quantity += update_by
+    
+    def remove_stock_from_inventory(self, update_by: int): 
+        """Remove stock from inventory"""
+        self.__quantity -= update_by
+        
     def update_price(self, price: float):
         """Update the price of the product"""
         self.__price = price

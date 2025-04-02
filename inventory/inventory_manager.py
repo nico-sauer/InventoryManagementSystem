@@ -35,6 +35,14 @@ class InventoryManager:
         """Update quantity of specified product"""
         self.products[int(product_id)].update_quantity(new_quantity)
         
+    def add_stock_to_inventory(self, product_id: int, update_by: int):
+        """Updating quantity of product by a specific amount."""
+        self.products[int(product_id)].add_stock_to_inventory(update_by)
+        
+    def remove_stock_from_inventory(self, product_id: int, update_by: int):
+        """Updating quantity of product by a specific amount."""
+        self.products[int(product_id)].remove_stock_from_inventory(update_by)
+         
     def update_price(self, product_id: int, new_price: float):
         """Update price of specified product"""
         self.products[int(product_id)].update_price(new_price)

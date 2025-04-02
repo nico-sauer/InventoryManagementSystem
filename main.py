@@ -3,6 +3,7 @@ from inventory.product import Product
 import time
 import sys
 from random import randint
+import re
 
 manager = InventoryManager()
 products_file = "./inventory/saved_inventory.txt"
@@ -18,9 +19,31 @@ def main():
         print("*           Inventory             *")
         print("*       Managment System          *")
         print("*              ***                *")
+        print("***********************************")
+        print("")
+        print("Enter mode:")
+        print("  > 1. Cash Register.")
+        print("  > 2. Inventory Management.")
+        print("")
+        print("  Click 'x' to quit.")
     
-        inventory_menu()
-
+        option = input("Enter your option (1 or 2) or 'x' to quit:\n—> ").lower()
+        
+        while option not in (["1", "2", "x"]):
+            print("Invalid. Try again.")
+            option = input(" > Enter your option (1 or 2 or 'x' to quit):\n—> ").lower()
+        
+        if option == "1":
+            cash_register()
+            
+        elif option == "2":
+            inventory_menu()
+        
+        else:
+            sys.exit() 
+        
+ 
+        
 #function to add a new product to inventory             
 def new_item():
     
@@ -36,8 +59,6 @@ def new_item():
     print(id)
     return Product(id, name, price, quantity, cost_price, category, colour)
     
-
-
 #inventory menu
 def inventory_menu():
    
@@ -66,9 +87,11 @@ def inventory_menu():
             option = input(" > Enter your option (1 to 6 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
+           #TODO check if id exists before item menu opens maybe with get_product_ids
            print("Enter product ID number:")
            id = input("ID —> ")
            item_menu(id)
+           
             
         #checking specific item in inventory                  
         elif option == "2":
@@ -104,7 +127,8 @@ def inventory_menu():
             time.sleep(1)
         
         else:
-            sys.exit() 
+            #sys.exit() 
+            main()
 
 #item inventory menu 
          
@@ -117,7 +141,7 @@ def item_menu(id):
         print(manager.get_product_info(id))
         print("")
         time.sleep(1)
-        print("  > 1. Update Quantity.")
+        print("  > 1. Update Stock.")
         print("  > 2. Update Price.")
         print("  > 3. Update Category.")
         print("  > 4. Delete Product.")
@@ -132,10 +156,7 @@ def item_menu(id):
             option = input(" > Enter your option (1 to 4 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
-            new_quantity = int(input("Enter new quantity: "))
-            manager.update_quantity(id, new_quantity)
-            manager.save_products(products_file)
-            print(f"Updated quantity in inventory. Current Quantity: {new_quantity}.")
+            update_stock(id)
             
          
         elif option == "2":
@@ -160,5 +181,58 @@ def item_menu(id):
         else:
             inventory_menu()
 
+
+def cash_register():
+    #could be used to keep track of transactions with separate file or print receipt or whatever.
+    transaction = True
+    print("Start Transaction.\nPlease scan items or enter ID manually.\
+        \nTo return or cancel a purchase first press 'x.\n Click = end transaction")
+    
+    while transaction: 
+        scan = input(">>> ").lower()
+        if scan == "=":
+            print("placeholder for printing receipt with total")
+            transaction = False
+            
+        elif re.match("^(['x']?[0-9]\\d*|0)$", scan):
+            if scan.isdigit():
+                id = scan
+                update_by = 1
+                manager.remove_stock_from_inventory(id, update_by)
+                manager.save_products(products_file)
+                #could add item name + price to receipt for example
+                
+            elif scan[0] == "x":
+                id = int(scan[1:])
+                update_by = 1
+                manager.add_stock_to_inventory(id, update_by)
+                manager.save_products(products_file)
+        
+    
+    #54674 item id for testing
+def update_stock(id):
+    while True:
+        option = input("To add or remove stock press +/- and select amount.\nTo manually edit stock enter custom amount.\nPress 'x' to cancel.\n-> ").lower()
+        if re.match("^([+-]?[0-9]\\d*|0)$", option):
+            break
+        elif option == "x":
+            item_menu(id)
+         
+    if option.isdigit():
+        new_quantity = int(option)
+        manager.update_quantity(id, new_quantity)
+        manager.save_products(products_file)
+        print(f"Updated quantity in inventory. Current Quantity: {new_quantity}.")
+        
+    elif option[0] == "+":
+        update_by = int(option[1:])
+        manager.add_stock_to_inventory(id, update_by)
+        manager.save_products(products_file)
+        
+    elif option[0] == "-":
+        update_by = int(option[1:])
+        manager.remove_stock_from_inventory(id, update_by)
+        manager.save_products(products_file)
+  
 if __name__ == "__main__":
     main()
