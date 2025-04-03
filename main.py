@@ -144,16 +144,18 @@ def item_menu(id):
         print("  > 1. Update Stock.")
         print("  > 2. Update Price.")
         print("  > 3. Update Category.")
-        print("  > 4. Delete Product.")
+        print("  > 4. Update Name.")
+        print("  > 5. Update Color.")
+        print("  > 6. Delete Product.")
         print("")
         print("  Click 'x' to return to Inventory Menu.")
         print("************************")
         
-        option = input("Enter your option (1 to 4) or 'x' to quit:\n—> ").lower()
+        option = input("Enter your option (1 to 6) or 'x' to quit:\n—> ").lower()
         
-        while option not in (["1", "2", "3", "4", "x"]):
+        while option not in (["1", "2", "3", "4", "5", "6", "x"]):
             print("Invalid. Try again.")
-            option = input(" > Enter your option (1 to 4 or 'x' to quit):\n—> ").lower()
+            option = input(" > Enter your option (1 to 6 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
             update_stock(id)
@@ -172,8 +174,20 @@ def item_menu(id):
             manager.update_category(id, new_category)
             manager.save_products(products_file)
             print(f"Product category updated. Current category: {new_category}.")
-        
+            
         elif option == "4":
+            new_name = input("Enter updated name: ")
+            manager.products[int(id)].update_name(new_name)
+            manager.save_products(products_file)
+            print(f"Product name updated. Current name: {new_name}.")
+        
+        elif option == "5":
+            new_colour = input("Enter updated colour: ")
+            manager.products[int(id)].update_colour(new_colour)
+            manager.save_products(products_file)
+            print(f"Product colour updated. Current colour: {new_colour}.")
+        
+        elif option == "6":
             manager.remove_product(id)
             manager.save_products(products_file)
             inventory_menu()

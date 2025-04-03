@@ -87,6 +87,14 @@ class Product:
         """Update the cost price of the product."""
         self.__cost_price = cost_price
         
+    def update_name(self, name: str):
+        """Update the name of the product."""
+        self.__name = name.title()
+        
+    def update_colour(self, colour: str):
+        """Update the colour of the product."""
+        self.__colour = colour.title()
+        
     def update_category(self, category: str):
         """Update the category of the product."""
         self.__category = category.capitalize()
