@@ -198,6 +198,9 @@ def cash_register():
             if scan.isdigit():
                 id = scan
                 update_by = 1
+                if manager.products.get(scan, None) == None:
+                    print("Product not found. Please try again: ")
+                    continue
                 manager.remove_stock_from_inventory(id, update_by)
                 manager.save_products(products_file)
                 #could add item name + price to receipt for example
