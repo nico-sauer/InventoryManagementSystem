@@ -24,7 +24,7 @@ class InventoryManager:
     def add_product(self, product: Product):
         """Adds a new or overrides an existing product with the given product"""
         self.products[product.id] = product
-    
+   
     def remove_product(self, product_name: str):
         """Removes a product by name"""
         # get the id by name:
