@@ -95,8 +95,8 @@ class InventoryManager:
                 product_id = prod.id 
                 print(self.products[int(product_id)].get_product_info())
                 
-    def sort_by_brand(self, brand)
-    """Shows/searches inventory by brand.""":
+    def sort_by_brand(self, brand):
+        """Shows/searches inventory by brand."""
         for prod in self.products.values():
             if brand in prod.brand:
                 product_id = prod.id 
