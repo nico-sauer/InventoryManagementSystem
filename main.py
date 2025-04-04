@@ -22,7 +22,7 @@ def main():
         print("***********************************")
         print("")
         print("Enter mode:")
-        print("  > 1. Cash Register.")
+        print("  > 1. Cash Register.") 
         print("  > 2. Inventory Management.")
         print("")
         print("  Click 'x' to quit.")
@@ -62,6 +62,7 @@ def new_item():
     
 #inventory menu
 def inventory_menu():
+    """Main inventory management menu to add new products as well as various ways to sort the inventory."""
    
     while True:
     
@@ -89,7 +90,7 @@ def inventory_menu():
             option = input(" > Enter your option (1 to 7 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
-           #maybe check if id exists before item menu opens maybe with get_product_ids
+           #maybe add a check if id exists before item menu opens maybe with get_product_ids
            print("Enter product ID number:")
            id = input("ID —> ")
            item_menu(id)
@@ -126,7 +127,8 @@ def inventory_menu():
             print("Enter product brand:")
             brand = input("—> ").title()
             manager.sort_by_brand(brand)
-            
+        
+        #adding new product    
         elif option == "7": 
             product = new_item()
             manager.add_product(product)
@@ -134,12 +136,12 @@ def inventory_menu():
             time.sleep(1)
         
         else:
-            #sys.exit() 
             main()
 
 #item inventory menu 
          
 def item_menu(id):
+    """Menu to edit specific attributes of a product, or to remove it entirely."""
    
     while True:
 
@@ -204,7 +206,9 @@ def item_menu(id):
 
 
 def cash_register():
-    #could be used to keep track of transactions with separate file or print receipt or whatever.
+    #removing or adding 1 from/to the inventory as products are purchased or returned.
+    #could be used to keep track of transactions/profit made perhaps in a separate file 
+    # #print receipt, apply discount etc. 
     transaction = True
     print("Start Transaction.\nPlease scan items or enter ID manually.\
         \nTo return or cancel a purchase first press 'x.\n Click = end transaction")
@@ -212,7 +216,7 @@ def cash_register():
     while transaction: 
         scan = input(">>> ").lower()
         if scan == "=":
-            print("placeholder for printing receipt with total")
+            print("Placeholder string for printing receipt with total.")
             transaction = False
             
         elif re.match("^(['x']?[0-9]\\d*|0)$", scan):
@@ -224,7 +228,7 @@ def cash_register():
                     continue
                 manager.remove_stock_from_inventory(id, update_by)
                 manager.save_products(products_file)
-                #could add item name + price to receipt for example
+                #could add item name + price to receipt + total for example
                 
             elif scan[0] == "x":
                 id = int(scan[1:])
@@ -232,9 +236,10 @@ def cash_register():
                 manager.add_stock_to_inventory(id, update_by)
                 manager.save_products(products_file)
         
-    
-    #54674 item id for testing
+
 def update_stock(id):
+    """Updating the Quantity of items in stock, either by entering a specified item count, 
+    after physically taking inventory in stores or adding/removing a specified amount to/from the current inventory. """
     while True:
         option = input("To add or remove stock press +/- and select amount.\nTo manually edit stock enter custom amount.\nPress 'x' to cancel.\n-> ").lower()
         if re.match("^([+-]?[0-9]\\d*|0)$", option):
