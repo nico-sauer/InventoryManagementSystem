@@ -1,7 +1,7 @@
 class Product:
     """The Products that we are managing"""
     
-    def __init__(self, id: int, name: str, price: float, quantity: int, cost_price: float, category: str, colour: str):
+    def __init__(self, id: int, name: str, price: float, quantity: int, cost_price: float, brand: str, category: list, colour: list):
         """Initiator for Product, assigning default values
 
         Args:
@@ -15,6 +15,7 @@ class Product:
         self.__price = price
         self.__quantity = quantity
         self.__cost_price = cost_price
+        self.__brand = brand
         self.__category = category
         self.__colour = colour
     
@@ -52,16 +53,23 @@ class Product:
     @cost_price.setter
     def cost_price(self, cost_price):
         self.__cost_price = cost_price    
+    
+    @property
+    def brand(self) -> str:
+        return self.__name
+    @brand.setter
+    def brand(self, brand):
+        self.__brand = brand
         
     @property
-    def category(self) -> str:
+    def category(self) -> list:
         return self.__category
     @category.setter
     def category(self, category):
         self.__category = category
     
     @property
-    def colour(self) -> str:
+    def colour(self) -> list:
         return self.__colour
     @colour.setter
     def colour(self, colour):
@@ -91,7 +99,7 @@ class Product:
         """Update the name of the product."""
         self.__name = name.title()
         
-    def update_colour(self, colour: str):
+    def update_colour(self, colour: list):
         """Update the colour of the product."""
         self.__colour = colour.title()
         
@@ -114,7 +122,8 @@ class Product:
     def get_product_info(self) -> str:
         """Get the product information as a string representation"""
         return f"Product ID—> {self.__id}\n—————————————————————————————————————————————————\
-            \nName: {self.__name} | Category: {self.__category} | Colour: {self.__colour}\
+            \nName: {self.__name} | Category: {self.__category}\
+            \nColour: {self.__colour} | Brand: {self.__brand}\
             \nPrice: {self.__price:.2f}€ | Cost Price: {self.__cost_price:.2f}€ | Stock: {self.__quantity}\
             \n—————————————————————————————————————————————————"
      

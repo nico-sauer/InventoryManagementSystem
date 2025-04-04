@@ -91,6 +91,12 @@ class InventoryManager:
             if category in prod.category:
                 product_id = prod.id 
                 print(self.products[int(product_id)].get_product_info())
+                
+    def sort_by_brand(self, brand):
+        for prod in self.products.values():
+            if brand in prod.brand:
+                product_id = prod.id 
+                print(self.products[int(product_id)].get_product_info())
     
     def get_total_inventory_value(self):
         """Calculate the total value of the entire inventory"""

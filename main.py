@@ -52,12 +52,13 @@ def new_item():
     cost_price = float(input("Product Cost Price: "))
     category = input("Category: ").title()
     colour = input("Colour: ").title()
-    quantity = int(input("Enter Quantity: "))
+    quantity = int(input("Quantity: "))
+    brand = input("Brand: ")
     id = randint(10000, 99999) 
     while id in manager.get_product_ids():
         id = randint(10000, 99999) 
     print(id)
-    return Product(id, name, price, quantity, cost_price, category, colour)
+    return Product(id, name, price, quantity, cost_price, brand, category, colour)
     
 #inventory menu
 def inventory_menu():
@@ -87,7 +88,7 @@ def inventory_menu():
             option = input(" > Enter your option (1 to 6 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
-           #TODO check if id exists before item menu opens maybe with get_product_ids
+           #maybe check if id exists before item menu opens maybe with get_product_ids
            print("Enter product ID number:")
            id = input("ID —> ")
            item_menu(id)
@@ -145,17 +146,17 @@ def item_menu(id):
         print("  > 2. Update Price.")
         print("  > 3. Update Category.")
         print("  > 4. Update Name.")
-        print("  > 5. Update Color.")
+        print("  > 5. Update Colour.")
         print("  > 6. Delete Product.")
         print("")
         print("  Click 'x' to return to Inventory Menu.")
         print("************************")
         
-        option = input("Enter your option (1 to 6) or 'x' to quit:\n—> ").lower()
+        option = input("Enter your option (1 to 6) or 'x' to leave:\n—> ").lower()
         
         while option not in (["1", "2", "3", "4", "5", "6", "x"]):
             print("Invalid. Try again.")
-            option = input(" > Enter your option (1 to 6 or 'x' to quit):\n—> ").lower()
+            option = input(" > Enter your option (1 to 6 or 'x' to leave.):\n—> ").lower()
         
         if option == "1":
             update_stock(id)
@@ -170,19 +171,19 @@ def item_menu(id):
             print(f"Product price updated. Current Price: {new_price}.\nCost price updated. Current cost price: {new_cost_price}.")
         
         elif option == "3":
-            new_category = input("Enter updated category: ")
+            new_category = input("Enter updated category: ").title()
             manager.update_category(id, new_category)
             manager.save_products(products_file)
             print(f"Product category updated. Current category: {new_category}.")
             
         elif option == "4":
-            new_name = input("Enter updated name: ")
+            new_name = input("Enter updated name: ").title()
             manager.products[int(id)].update_name(new_name)
             manager.save_products(products_file)
             print(f"Product name updated. Current name: {new_name}.")
         
         elif option == "5":
-            new_colour = input("Enter updated colour: ")
+            new_colour = input("Enter updated colour: ").title()
             manager.products[int(id)].update_colour(new_colour)
             manager.save_products(products_file)
             print(f"Product colour updated. Current colour: {new_colour}.")
