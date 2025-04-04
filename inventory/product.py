@@ -56,7 +56,7 @@ class Product:
     
     @property
     def brand(self) -> str:
-        return self.__name
+        return self.__brand
     @brand.setter
     def brand(self, brand):
         self.__brand = brand

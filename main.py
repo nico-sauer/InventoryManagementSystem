@@ -76,16 +76,17 @@ def inventory_menu():
         print("  > 3. Show Inventory by Category.")
         print("  > 4. Show Inventory by Name.")
         print("  > 5. Show Inventory by Colour.")
-        print("  > 6. Add new product to inventory.")
+        print("  > 6. Show inventory by Brand.")
+        print("  > 7. Add new product to inventory.")
         print("")
         print("   Click 'x' to quit. ")
         print("***********************************")
 
-        option = input("Enter your option (1 to 6) or 'x' to quit:\n—> ").lower()
+        option = input("Enter your option (1 to 7) or 'x' to quit:\n—> ").lower()
         
-        while option not in (["1", "2", "3", "4", "5", "6", "x"]):
+        while option not in (["1", "2", "3", "4", "5", "6", "7", "x"]):
             print("Invalid. Try again.")
-            option = input(" > Enter your option (1 to 6 or 'x' to quit):\n—> ").lower()
+            option = input(" > Enter your option (1 to 7 or 'x' to quit):\n—> ").lower()
         
         if option == "1":
            #maybe check if id exists before item menu opens maybe with get_product_ids
@@ -121,7 +122,12 @@ def inventory_menu():
             colour = input("—> ").title()
             manager.sort_by_colour(colour)
             
-        elif option == "6": 
+        elif option == "6":
+            print("Enter product brand:")
+            brand = input("—> ").title()
+            manager.sort_by_brand(brand)
+            
+        elif option == "7": 
             product = new_item()
             manager.add_product(product)
             manager.save_products(products_file)
