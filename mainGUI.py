@@ -7,8 +7,7 @@ manager = InventoryManager()
 
 def main(page: ft.Page):
     # Load products from files:
-    products_file = "./inventory/saved_inventory.txt" 
-    manager.load_products(filename=products_file)
+    manager.load_products_from_file()
 
     # Initialise page defaults
     page_initialisation(page)
@@ -38,6 +37,13 @@ def main(page: ft.Page):
     
     #region CONTROL FUNCTIONS
     
+    def submit_changes(e):
+        """When the user pressed "Enter" to submit the changes, trigger add or save accordingly."""
+        if btn_add.visible:
+            add_product(e)
+        else:
+            save_product(e)
+    
     def add_product(e):
         """Code for adding the new product to the data and grid"""
         # Toggle control visibilities
@@ -62,10 +68,11 @@ def main(page: ft.Page):
                               float(txt_add_product_price.value), 
                               int(txt_add_product_quantity.value),
                               float(txt_add_product_cost_price.value),
+                              str(txt_add_product_brand.value),
                               str(txt_add_product_category.value),
                               str(txt_add_product_colour.value))
             manager.add_product(product)
-            manager.save_products(products_file)
+            manager.save_products_to_file()
             
             # Also add it to the datatable:
             row = ft.DataRow(
@@ -76,9 +83,10 @@ def main(page: ft.Page):
                     ft.DataCell(ft.Text(f"{product.price}")),
                     ft.DataCell(ft.Text(f"{product.cost_price}")),
                     ft.DataCell(ft.Text(f"{product.quantity}")),
+                    ft.DataCell(ft.Text(f"{product.brand}")),
                     ft.DataCell(ft.Text(f"{product.category}")),
                     ft.DataCell(ft.Text(f"{product.colour}"))
-                ], on_select_changed=lambda e: change_product_selection(e, e.control.data)
+                ], on_select_changed=lambda e: change_product_selection(e, int(e.control.data))
                 , data=product.id  # primary key (get via e.control.data)
             )
             data_table_products.rows.append(row)
@@ -106,6 +114,7 @@ def main(page: ft.Page):
         txt_add_product_price.value = f"{product.price:.2f}"
         txt_add_product_quantity.value = str(product.quantity)
         txt_add_product_cost_price.value = f"{product.cost_price:.2f}"
+        txt_add_product_brand.value = product.brand
         txt_add_product_category.value = product.category
         txt_add_product_colour.value = product.colour
 
@@ -124,11 +133,12 @@ def main(page: ft.Page):
                           float(txt_add_product_price.value),
                           int(txt_add_product_quantity.value),
                           float(txt_add_product_cost_price.value),
+                          str(txt_add_product_brand.value),
                           str(txt_add_product_category.value),
                           str(txt_add_product_colour.value)
                           )
         manager.add_product(product)
-        manager.save_products(products_file)
+        manager.save_products_to_file()
         
         # update the grid
         row_nr = int(lbl_datagrid_row_nr.value)
@@ -136,8 +146,9 @@ def main(page: ft.Page):
         data_table_products.rows[row_nr].cells[3].content = ft.Text(f"{txt_add_product_price.value}")
         data_table_products.rows[row_nr].cells[4].content = ft.Text(f"{txt_add_product_cost_price.value}")
         data_table_products.rows[row_nr].cells[5].content = ft.Text(f"{txt_add_product_quantity.value}")
-        data_table_products.rows[row_nr].cells[6].content = ft.Text(f"{txt_add_product_category.value}")
-        data_table_products.rows[row_nr].cells[7].content = ft.Text(f"{txt_add_product_colour.value}")
+        data_table_products.rows[row_nr].cells[6].content = ft.Text(f"{txt_add_product_brand.value}")
+        data_table_products.rows[row_nr].cells[7].content = ft.Text(f"{txt_add_product_category.value}")
+        data_table_products.rows[row_nr].cells[8].content = ft.Text(f"{txt_add_product_colour.value}")
         
         # Clear fields again
         clear_addedit_controls()
@@ -166,7 +177,7 @@ def main(page: ft.Page):
     def delete_product(e):
         # Delete from dictionary
         manager.products.pop(int(lbl_product_id.value))
-        manager.save_products(products_file)
+        manager.save_products_to_file()
         
         # Delete the row:
         print(f"Deleting product with id = {lbl_product_id.value}")
@@ -200,9 +211,11 @@ def main(page: ft.Page):
                 or
                 search_text in str(row.cells[2].content.value).lower()  # name
                 or
-                search_text in str(row.cells[6].content.value).lower()  # category
+                search_text in str(row.cells[6].content.value).lower()  # brand
                 or
-                search_text in str(row.cells[7].content.value).lower()  # colour
+                search_text in str(row.cells[7].content.value).lower()  # category
+                or
+                search_text in str(row.cells[8].content.value).lower()  # colour
             ):
                 row.visible = False
             else:
@@ -226,8 +239,9 @@ def main(page: ft.Page):
     txt_add_product_price = ft.TextField(label="Price", height=45, width=100, keyboard_type=ft.KeyboardType.NUMBER)  # set default keyboard for mobile and for validation checks later on
     txt_add_product_cost_price = ft.TextField(label="Cost Price", height=45, width=100, keyboard_type=ft.KeyboardType.NUMBER)  # set default keyboard for mobile and for validation checks later on
     txt_add_product_quantity = ft.TextField(label="Quantity", height=45, width=100, keyboard_type=ft.KeyboardType.NUMBER)  # set default keyboard for mobile and for validation checks later on
+    txt_add_product_brand = ft.TextField(label="Brand", height=45, width=200)
     txt_add_product_category = ft.TextField(label="Category", height=45, width=200)
-    txt_add_product_colour = ft.TextField(label="Colour", height=45, width=200, on_submit=add_product)
+    txt_add_product_colour = ft.TextField(label="Colour", height=45, width=200, on_submit=submit_changes)
     
     row_addedit_controls = ft.Row(
         controls=[
@@ -235,6 +249,7 @@ def main(page: ft.Page):
             txt_add_product_price,
             txt_add_product_cost_price,
             txt_add_product_quantity,
+            txt_add_product_brand,
             txt_add_product_category,
             txt_add_product_colour]
         ,visible=False  # Will display when "Add" is clicked
@@ -292,9 +307,10 @@ def main(page: ft.Page):
                 ft.DataCell(ft.Text(f"{prod.price}")),
                 ft.DataCell(ft.Text(f"{prod.cost_price}")),
                 ft.DataCell(ft.Text(f"{prod.quantity}")),
+                ft.DataCell(ft.Text(f"{prod.brand}")),
                 ft.DataCell(ft.Text(f"{prod.category}")),
                 ft.DataCell(ft.Text(f"{prod.colour}"))
-            ], on_select_changed=lambda e: change_product_selection(e, e.control.data)
+            ], on_select_changed=lambda e: change_product_selection(e, int(e.control.data))
             , data=prod.id  # primary key (get via e.control.data)
         )
         data_rows.append(row)
@@ -307,6 +323,7 @@ def main(page: ft.Page):
             ft.DataColumn(ft.Text("Price"), numeric=True),
             ft.DataColumn(ft.Text("Cost Price"), numeric=True),
             ft.DataColumn(ft.Text("Quantity"), numeric=True),
+            ft.DataColumn(ft.Text("Brand")),
             ft.DataColumn(ft.Text("Category")),
             ft.DataColumn(ft.Text("Colour"))
         ],

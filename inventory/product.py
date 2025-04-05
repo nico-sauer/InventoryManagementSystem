@@ -10,11 +10,11 @@ class Product:
             price (float): The product price
             quantity (int): The product quantity
         """
-        self.__id = id
+        self.__id = int(id)
         self.__name = name 
-        self.__price = price
-        self.__quantity = quantity
-        self.__cost_price = cost_price
+        self.__price = float(price)
+        self.__quantity = int(quantity)
+        self.__cost_price = float(cost_price)
         self.__brand = brand
         self.__category = category
         self.__colour = colour
@@ -56,7 +56,7 @@ class Product:
     
     @property
     def brand(self) -> str:
-        return self.__name
+        return self.__brand
     @brand.setter
     def brand(self, brand):
         self.__brand = brand

@@ -1,23 +1,33 @@
 from inventory.product import Product
-import pickle
+import json
 
 class InventoryManager:
      
+    filename: str = "saved_inventory.json"
     
     def __init__(self):
         self.products = {}  # key = id, value = Product
     
-    def save_products(self, filename: str):
+    def save_products_to_file(self):
         """Saves the current products to a file"""
-        with open(filename, "wb") as f:
-            pickle.dump(self, f)
+        with open(self.filename, "w") as file:
+            json.dump(self.__serialise_products(), file, indent=2)
+            
+    def __serialise_products(self) -> dict:
+        """Serialises the self.products dictionary, because otherwise it cannot be saved to JSON."""
+        serialised_dict = {}
+        for key, product in self.products.items():
+            serialised_dict[key] = product.__dict__
+        return serialised_dict
         
-    def load_products(self, filename: str):
+    def load_products_from_file(self):
         """Loads the products from a file"""
         try:
-            with open(filename, "rb") as f:
-                obj = pickle.load(f)
-                self.products = obj.products
+            with open(self.filename, "r") as file:  # r = read
+                dct = json.load(file)
+                self.products = {}
+                for key, values in dct.items():
+                    self.products[int(key)] = Product(*values.values())
         except:
             self.products = {}
     

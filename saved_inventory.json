@@ -1,0 +1,32 @@
+{
+  "57020": {
+    "_Product__id": 57020,
+    "_Product__name": "name1",
+    "_Product__price": 1.0,
+    "_Product__quantity": 3,
+    "_Product__cost_price": 2.0,
+    "_Product__brand": "brand",
+    "_Product__category": "cat",
+    "_Product__colour": "col"
+  },
+  "17868": {
+    "_Product__id": 17868,
+    "_Product__name": "name2.1",
+    "_Product__price": 2.1,
+    "_Product__quantity": 5,
+    "_Product__cost_price": 3.1,
+    "_Product__brand": "brand2.1",
+    "_Product__category": "cat2.1",
+    "_Product__colour": "col22.1"
+  },
+  "37157": {
+    "_Product__id": 37157,
+    "_Product__name": "name3",
+    "_Product__price": 3.0,
+    "_Product__quantity": 5,
+    "_Product__cost_price": 4.0,
+    "_Product__brand": "brand3",
+    "_Product__category": "cat3",
+    "_Product__colour": "col3"
+  }
+}
