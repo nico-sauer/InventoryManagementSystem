@@ -346,5 +346,6 @@ def page_initialisation(page: ft.Page):
     page.title = "Inventory Manager"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.scroll = ft.ScrollMode.ADAPTIVE
 
 ft.app(main)

@@ -1,5 +1,6 @@
 from inventory.product import Product
 import json
+import pickle
 
 class InventoryManager:
      
@@ -7,7 +8,7 @@ class InventoryManager:
     
     def __init__(self):
         self.products = {}  # key = id, value = Product
-    
+        
     def save_products_to_file(self):
         """Saves the current products to a file"""
         with open(self.filename, "w") as file:

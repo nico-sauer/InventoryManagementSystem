@@ -6,11 +6,11 @@ from random import randint
 import re
 
 manager = InventoryManager()
-products_file = "./inventory/saved_inventory.txt"
 def main():
 
     #load the inventory from file:
-    manager.load_products(filename=products_file)
+    manager.load_products_from_file()
+    manager.save_products_to_file()
     
     while True:
         
@@ -132,7 +132,7 @@ def inventory_menu():
         elif option == "7": 
             product = new_item()
             manager.add_product(product)
-            manager.save_products(products_file)
+            manager.save_products_to_file()
             time.sleep(1)
         
         else:
@@ -175,30 +175,30 @@ def item_menu(id):
             new_cost_price = float(input("Enter updated cost price: "))
             manager.update_price(id, new_price)
             manager.update_cost_price(id, new_cost_price)
-            manager.save_products(products_file)
+            manager.save_products_to_file()
             print(f"Product price updated. Current Price: {new_price}.\nCost price updated. Current cost price: {new_cost_price}.")
         
         elif option == "3":
             new_category = input("Enter updated category: ").title()
             manager.update_category(id, new_category)
-            manager.save_products(products_file)
+            manager.save_products_to_file()
             print(f"Product category updated. Current category: {new_category}.")
             
         elif option == "4":
             new_name = input("Enter updated name: ").title()
             manager.products[int(id)].update_name(new_name)
-            manager.save_products(products_file)
+            manager.save_products_to_file()
             print(f"Product name updated. Current name: {new_name}.")
         
         elif option == "5":
             new_colour = input("Enter updated colour: ").title()
             manager.products[int(id)].update_colour(new_colour)
-            manager.save_products(products_file)
+            manager.save_products_to_file()
             print(f"Product colour updated. Current colour: {new_colour}.")
         
         elif option == "6":
             manager.remove_product(id)
-            manager.save_products(products_file)
+            manager.save_products_to_file()
             inventory_menu()
                
         else:
@@ -227,14 +227,14 @@ def cash_register():
                     print("Product not found. Please try again: ")
                     continue
                 manager.remove_stock_from_inventory(id, update_by)
-                manager.save_products(products_file)
+                manager.save_products_to_file()
                 #could add item name + price to receipt + total for example
                 
             elif scan[0] == "x":
                 id = int(scan[1:])
                 update_by = 1
                 manager.add_stock_to_inventory(id, update_by)
-                manager.save_products(products_file)
+                manager.save_products_to_file()
         
 
 def update_stock(id):
@@ -250,18 +250,18 @@ def update_stock(id):
     if option.isdigit():
         new_quantity = int(option)
         manager.update_quantity(id, new_quantity)
-        manager.save_products(products_file)
+        manager.save_products_to_file()
         print(f"Updated quantity in inventory. Current Quantity: {new_quantity}.")
         
     elif option[0] == "+":
         update_by = int(option[1:])
         manager.add_stock_to_inventory(id, update_by)
-        manager.save_products(products_file)
+        manager.save_products_to_file()
         
     elif option[0] == "-":
         update_by = int(option[1:])
         manager.remove_stock_from_inventory(id, update_by)
-        manager.save_products(products_file)
+        manager.save_products_to_file()
   
 if __name__ == "__main__":
     main()
