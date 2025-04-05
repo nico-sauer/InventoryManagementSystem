@@ -108,7 +108,7 @@ class Product:
         self.__category = category.capitalize()
         
     def get_discount(self) -> float:
-        """return the discount."""
+        """Return the discount."""
         return self.__price - self.__cost_price
     
     def get_total_value(self) -> float:

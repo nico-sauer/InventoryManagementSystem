@@ -85,24 +85,28 @@ class InventoryManager:
             return f"Product not found. Error: {e}"
         
     def sort_by_name(self, name):
+        """Shows/searches inventory by name."""
         for prod in self.products.values():
             if name in prod.name:
                 product_id = prod.id 
                 print(self.products[int(product_id)].get_product_info())
     
     def sort_by_colour(self, colour):
+        """Shows/searches inventory by colour."""
         for prod in self.products.values():
             if colour in prod.colour:
                 product_id = prod.id 
                 print(self.products[int(product_id)].get_product_info())
     
     def sort_by_category(self, category):
+        """Shows/searches inventory by category."""
         for prod in self.products.values():
             if category in prod.category:
                 product_id = prod.id 
                 print(self.products[int(product_id)].get_product_info())
                 
     def sort_by_brand(self, brand):
+        """Shows/searches inventory by brand."""
         for prod in self.products.values():
             if brand in prod.brand:
                 product_id = prod.id 
